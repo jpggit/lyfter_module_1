@@ -9,7 +9,9 @@ from actions import (
 )
 
 def run_menu():
-    while True: 
+    students = []  # local variable — holds all student data
+    
+    while True:
         print("---STUDENT GRADING SYSTEM---")
         print("1. Load existing students")
         print("2. Import students from CSV")
@@ -24,42 +26,37 @@ def run_menu():
 
         if choice == "1":
             students = load_students()
-            print (f"{len(students)} students loaded")
-            print({f"{students}"})
+            print(f"{len(students)} students loaded into memory.")
+
         elif choice == "2":
             path = input("Enter the path of the file to import: ").strip()
-            imported_students = import_students(path)
+            students, imported_students = import_students(students, path)
             print(f"Imported {len(imported_students)} students from {path}")
+
         elif choice == "3":
-            added_students = add_students()
-            print(f"{len(added_students)} have been added.")
+            students, new_students = add_students(students)
+            print(f"{len(new_students)} new student(s) added.")
+
         elif choice == "4":
-            students = see_all_students()
-            if not students:
-                print ("No students data found")
-            else:
-                print ("All your student data: ")
-                for s in students:
-                    print(
-                        f"{s["Name"]} - {s["Section"]} | " 
-                        f"Spanish: {s["Spanish"]}, English: {s["English"]}, Science: {s["Science"]}, Social Studies: {s["Social Studies"]}"
-                        f"Average: {s["Average"]}"
-                    )
+            see_all_students(students)
+
         elif choice == "5":
-            top_students = get_top_3_students()
+            top_students = get_top_3_students(students)
             if not top_students:
-                print ("There are no students available")
-            else: 
-                print ("Your top 3 students by average: ")
-                for i, s in enumerate(top_students, start = 1):
-                    print(f"{1}: {s["Name"]} - {s["Section"]} :: Average: {s["Average"]}")
-        elif choice == "6":
-            average = get_class_average()
-            print (f"The class average is of {average}")
-            
-        elif choice == "7":
-            success = export_students()
-            if success:
-                print("All student data has been successfully exported to students_db.csv.")
+                print("There are no students available")
             else:
-                print("No data to export.")
+                print("Your top 3 students by average:")
+                for i, s in enumerate(top_students, start=1):
+                    print(f"{i}: {s['Name']} - {s['Section']} :: Average: {s['Average']}")
+
+        elif choice == "6":
+            average = get_class_average(students)
+            print(f"The class average is {average}")
+
+        elif choice == "7":
+            export_students(students)
+            print("All student data has been successfully exported.")
+
+        elif choice == "8":
+            print("Exiting Student Grading System. Goodbye!")
+            break
