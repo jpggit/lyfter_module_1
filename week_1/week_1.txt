@@ -1,0 +1,94 @@
+Cree un algoritmo para ver un video en Youtube. Sea lo más especifico posible.
+
+1. Start.
+2. Open your computer.
+3. While you are logged out of computer:
+    1. if you are the main user, use fingerprint to log in;
+    2. else if you know the passcode then enter passcode
+    3. else request passcode from owner
+4. endWhile;
+5. Open Brave web browser
+6. Navigate to www.yourtube.com
+7. while loading is not complete:
+    1. if the page loads, go to next step;
+    2. else go to step 5.
+8. endWhile;
+9. Fn(Choose what to watch):
+    1. if you know what to watch;
+        1. enter search into search bar
+        2. while results
+            1. if a video meets your criteria, then click on video
+            2. else modify search into search bar
+        3. endWhile;
+    2. else find a video to watch:
+        1. while scrolling
+            1. if a video meets peeks your interest click on video
+            2. else continue scrolling 
+        2. endWhile;
+10. while video;
+    1. if video is playing, watch video
+    2. else, exit
+11. endWhile;
+12. End.
+
+---
+
+Cree un algoritmo que describa su rutina diaria. Use condiciones, condiciones multiples y ciclos.
+
+1. Start
+2. Fn(WakeUp)
+    1. Wake up:
+        1. if it is cold, select more layers
+        2. else, dress normally
+3. Fn (make the bed):
+    1. fit the sheets and add pillow layer 1 and add pillow layer 2 and add body pillow;
+4. Fn (make coffee):
+    1. measure beans:
+        1. if you run out of beans, open a new bag
+        2. else, measure beans;
+    2. measure water
+    3. grind beans
+    4. add water and coffee grounds to coffee machine
+    5. start machine
+5. Fn(shower)
+6. Fn(PlanDay):
+    1. while there is room in the DailyToDoList
+        1. add to do’s to the DailyToDoList
+        2. else, stop
+    2. endWhile;
+7. Fn(GetCoffee)
+    1. If Aly is home
+        1. Open pantry
+        2. Get 2 coffee mugs
+        3. serve coffee in both mugs
+        4. Bring one mug to Aly
+        5. Bring other mug to office
+    2. Else:
+        1. Open pantry
+        2. Get 1 coffee mug
+        3. serve coffee in mug
+        4. Bring mug to office
+8. Fn(Work)
+    1. Execute schedule
+        1. While DailyToDoList has items and TimeOfDay ≤ 6pm:
+            1. find next item on list and execute item,
+        2. else, fn(MakeDinner)
+        3. endWhile;
+9. Fn(MakeDinner)
+    1. Fn(AgreeOnMeal)
+        1. While we are looking for a meal:
+            1. Ask Aly what she wants to eat
+            2. if I agree with her, exit
+            3. else, (1.)
+        2. endWhile;
+    2. Fn(MakeMeal)
+        1. Cook meal;
+        2. Set table;
+        3. Eat dinner;
+    3. Fn(CleanUp)
+        1. Bring a round of dishes to kitchen sink
+            1. while dishes remain in the table
+                1. bring another round of dishes to the kitchen sink
+                2. else, exit
+            2. endWhile;
+10. Fn(Sleep)
