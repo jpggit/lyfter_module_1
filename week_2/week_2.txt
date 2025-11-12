@@ -1,0 +1,99 @@
+PRECIO DEL PRODUCTO
+
+Cree un pseudocódigo que le pida un `precio de producto` al usuario, calcule su descuento y muestre el precio final tomando en cuenta que:
+
+- Si el precio es menor a 100, el descuento es del 2%.
+- Si el precio es mayor o igual a 100, el descuento es del 10%.
+
+1. Inicio
+2. Definir `precio_de_producto`
+3. Definir `descuento`
+4. Definir `precio_final`
+5. Mostrar “Ingrese el precio del producto”
+6. Pedir `precio_de_producto`
+7. Si `precio_de_producto` < 100
+    1. `descuento = precio_de_producto * 0.02`
+8. Sino
+    1. `descuento = precio_de_producto * 0.1`
+9. `precio_final` = `precio_de_producto` - `descuento`
+10. Mostrar “El precio final es de: ”
+11. Mostrar `precio_final`
+12. Fin
+
+---
+
+TIEMPO EN SEGUNDOS
+
+Cree un pseudocódigo que le pida un `tiempo en segundos` al usuario y calcule si es menor o mayor a 10 minutos. Si es menor, muestre cuantos segundos faltarían para llegar a 10 minutos. Si es mayor, muestre “*Mayor*”. Si es exactamente igual, muestre “*Igual*”.
+
+1. Inicio
+2. Definir `tiempo_en_segundos`
+3. Definir `segundos_para_10`
+4. Definir `10_minutos_en_segundos`
+5. `10_minutos_en_segundos` = (10 * 60)
+6. Mostrar “Ingrese el tiempo en segundos”
+7. Pedir `tiempo_en_segundos`
+8. Si `tiempo_en_segundos` < `10_minutos_en_segundos`
+    1. `segundos_para_10` = `10_minutos_en_segundos` - `tiempo_en_segundos`
+    2. Mostrar “el tiempo es menor a 10 minutos. Faltan “
+    3. Mostrar `segundos_para_10`
+    4. Mostrar “para llegar a 10 minutos.”
+9. Si `tiempo_en_segundos` > `10_minutos_en_segundos`
+    1. Mostrar “Mayor”
+10. Sino 
+    1. Mostrar “Igual”
+11. Fin
+
+---
+
+SEGUNDOS 
+
+Cree un algoritmo que le pida un numero al usuario, y realice una suma de cada numero del 1 hasta ese número ingresado. Luego muestre el resultado de la suma.
+
+1. Inicio
+2. Definir `numero`
+3. Definir `contador`
+4. Definir `suma`
+5. Mostrar “Ingrese el número”
+6. Pedir `numero`
+7. `contador` = 0
+8. `suma` = 0
+9. Mientras `contador` < `numero`
+    1. `contador` = `contador` + 1
+    2. `suma` = `suma` + `contador` 
+10. FinMientras
+11. Mostrar `suma`
+12. Fin
+
+---
+
+Cree un algoritmo que le pida 2 números al usuario, los guarde en dos variables distintas (`primero` y `segundo`) y los ordene de menor a mayor en dichas variables.
+
+1. Inicio
+2. Definir `primero`
+3. Definir `segundo`
+4. Definir `sustituto`
+5. Mostrar “Ingrese el primer número”
+6. Pedir `primero`
+7. Mostrar “Ingrese el número”
+8. Pedir `segundo`
+9. Si `primero` > `segundo`
+    1. `sustituto` = `primero`
+    2. `primero` = `segundo`
+    3. `segundo` = `sustituto`
+10. Devolver `primero`, `segundo`
+11. Fin
+
+---
+
+Cree un algoritmo que le pida al usuario una velocidad en km/h y la convierta a m/s. Recuerda que `1 km == 1000m` y `1 hora == 60 minutos * 60 segundos`.
+
+1. Inicio
+2. Definir `velocidad_khr`
+3. Definir `velocidad_ms`
+4. Mostrar “Ingrese la velocidad”
+5. Pedir `velocidad_khr`
+6. `velocidad_ms` = `velocidad_khr` * 1000/3600
+7. Mostar “Tu velocidad expresada en m/s es de “
+8. Mostrar `velocidad_ms`
+9. Fin
