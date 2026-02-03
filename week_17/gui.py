@@ -1,6 +1,5 @@
 import FreeSimpleGUI as sg
 from finance_manager import FinanceManager
-from models import TransactionType
 
 INCOME = "income"
 EXPENSE = "expense"

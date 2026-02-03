@@ -57,7 +57,7 @@ class Transaction:
 
     @staticmethod #we use static method because we do not need to call an instance
     def from_dict(row: dict): 
-        tx_type_str = (row.get("type", "") or "").strip() # "" and .strip() to remove all empty or spacing errors
+        tx_type_str = (row.get("type", "") or "").strip().lower() # "" and .strip() to remove all empty or spacing errors
 
         if tx_type_str == "income":
             tx_type = TransactionType.INCOME
