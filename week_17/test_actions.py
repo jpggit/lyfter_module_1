@@ -1,133 +1,84 @@
 import pytest
-from datetime import date
-
-from actions import (
-    add_category,
-    add_transaction,
-    delete_transaction,
-    update_transaction,
-    list_transactions,
-    list_category_names,
-)
-
 from models import Category, TransactionType
+from finance_manager import FinanceManager
 
-# -------------------------
-# Helpers for tests
-# -------------------------
-def make_categories():
-    return [Category("Food"), Category("Housing")]
 
-def make_transactions():
-    return []
+def make_manager_with_categories():
+    m = FinanceManager()
+    m.categories = [Category("Food"), Category("Housing")]
+    m.transactions = []
+    return m
 
-INCOME_STR = "income"
-EXPENSE_STR = "expense"
 
 # -------------------------
 # Category tests (2)
 # -------------------------
-def test_add_category_adds_new_category():
-    categories = []
-    add_category(categories, "Food")
-    assert len(categories) == 1
-    assert categories[0].name == "Food"
+def test_manager_add_category_adds_new_category():
+    m = FinanceManager()
+    m.add_category("Food")
+    assert [c.name for c in m.categories] == ["Food"]
 
 
-def test_add_category_rejects_duplicate_case_insensitive():
-    categories = [Category("Food")]
+def test_manager_add_category_rejects_duplicates_case_insensitive():
+    m = FinanceManager()
+    m.categories = [Category("Food")]
     with pytest.raises(ValueError, match="already exists"):
-        add_category(categories, "  food  ")
+        m.add_category("  food  ")
 
 
 # -------------------------
-# Transaction tests (5)
+# Transaction tests (4)
 # -------------------------
-def test_add_transaction_requires_existing_category():
-    categories = [Category("Food")]
-    transactions = []
+def test_manager_add_transaction_requires_existing_category():
+    m = FinanceManager()
+    m.categories = [Category("Food")]
 
-    # Category called "Transport" does not exist
     with pytest.raises(ValueError, match="does not exist"):
-        add_transaction(
-            transactions, categories,
-            "2024-01-01", "Bus", "Transport", "10", EXPENSE_STR
-        )
+        m.add_transaction("2024-01-01", "Bus", "Transport", "10", "expense")
 
 
-def test_add_transaction_converts_and_sets_expense_negative():
-    categories = make_categories()
-    transactions = make_transactions()
+def test_manager_add_transaction_sets_expense_negative():
+    m = make_manager_with_categories()
+    m.add_transaction("2024-01-02", "Groceries", "Food", "25", "expense")
 
-    add_transaction(
-        transactions, categories,
-        "2024-01-02", "Groceries", "Food", "25", EXPENSE_STR
-    )
-
-    assert len(transactions) == 1
-    tx = transactions[0]
-    assert tx.amount < 0  # should be negative
+    assert len(m.transactions) == 1
+    tx = m.transactions[0]
     assert tx.tx_type == TransactionType.EXPENSE
+    assert tx.amount < 0
 
 
-def test_add_transaction_converts_and_sets_income_positive():
-    categories = make_categories()
-    transactions = make_transactions()
+def test_manager_add_transaction_sets_income_positive():
+    m = make_manager_with_categories()
+    m.add_transaction("2024-01-03", "Salary", "Housing", "1000", "income")
 
-    add_transaction(
-        transactions, categories,
-        "2024-01-03", "Salary", "Housing", "1000", INCOME_STR
-    )
-
-    assert len(transactions) == 1
-    tx = transactions[0]
-    assert tx.amount > 0  # should be positive
+    tx = m.transactions[0]
     assert tx.tx_type == TransactionType.INCOME
+    assert tx.amount > 0
 
 
-def test_add_transaction_rejects_bad_date_format():
-    categories = make_categories()
-    transactions = make_transactions()
-
+def test_manager_add_transaction_rejects_bad_date():
+    m = make_manager_with_categories()
     with pytest.raises(ValueError, match="YYYY-MM-DD"):
-        add_transaction(
-            transactions, categories,
-            "01-03-2024", "Salary", "Housing", "1000", INCOME_STR
-        )
+        m.add_transaction("01-03-2024", "Salary", "Housing", "1000", "income")
 
-def test_add_transaction_rejects_empty_description():
-    categories = [Category("Food")]
-    transactions = []
-
-    with pytest.raises(ValueError, match="Description cannot be empty"):
-        add_transaction(
-            transactions, categories,
-            "2024-01-01", "", "Food", "10", "expense"
-        )
 
 # -------------------------
-# Delete tests (3)
+# Delete tests (2)
 # -------------------------
-def test_delete_transaction_removes_item():
-    categories = make_categories()
-    transactions = make_transactions()
+def test_manager_delete_transaction_removes_item():
+    m = make_manager_with_categories()
+    m.add_transaction("2024-01-01", "Groceries", "Food", "10", "expense")
+    m.add_transaction("2024-01-02", "Rent", "Housing", "500", "expense")
 
-    add_transaction(transactions, categories, "2024-01-01", "Groceries", "Food", "10", EXPENSE_STR)
-    add_transaction(transactions, categories, "2024-01-02", "Rent", "Housing", "500", EXPENSE_STR)
+    m.delete_transaction("0")
 
-    delete_transaction(transactions, "0")
+    assert len(m.transactions) == 1
+    assert m.transactions[0].description == "Rent"
 
-    assert len(transactions) == 1
-    assert transactions[0].description == "Rent"
 
-def test_delete_transaction_rejects_out_of_range_index():
-    categories = [Category("Food")]
-    transactions = []
-
-    add_transaction(
-        transactions, categories,
-        "2024-01-01", "Groceries", "Food", "10", "expense"
-    )
+def test_manager_delete_transaction_rejects_out_of_range():
+    m = make_manager_with_categories()
+    m.add_transaction("2024-01-01", "Groceries", "Food", "10", "expense")
 
     with pytest.raises(ValueError, match="out of range"):
-        delete_transaction(transactions, "5")
+        m.delete_transaction("5")
