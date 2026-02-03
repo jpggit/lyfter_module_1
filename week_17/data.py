@@ -47,7 +47,7 @@ def load_categories():
                 if name:
                     categories.append(Category(name=name))
     except FileNotFoundError:
-        # File does not exist yet → no categories
+        # File does not exist yet == no categories
         pass
 
     return categories

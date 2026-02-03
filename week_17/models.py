@@ -48,10 +48,10 @@ class Transaction:
 
     def to_dict(self):
         return {
-            "date": self.tx_date.isoformat(), #isoformat = built-in python method to standardize the output on CSV output
+            "date": self.tx_date.isoformat(), #isoformat = built-in python method to standardize the output to CSV output
             "description": self.description,
             "category": self.category,
-            "amount": f"{self.amount:.2f}", #:.2f -> to format as 2 decimal float
+            "amount": f"{self.amount:.2f}", #:.2f == to format as 2 decimal float
             "type": self.tx_type.value, #use .value bc tx_type is an Enum, and must extract the string value
         }
 

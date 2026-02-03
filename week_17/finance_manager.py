@@ -51,7 +51,7 @@ class FinanceManager:
 
         tx_type = TransactionType((type_str or "").strip().lower())
 
-        # Business rule: user inputs positive, we enforce sign
+        # Biz rule: user inputs positive, we reinforce sign
         if tx_type == TransactionType.EXPENSE:
             amount = -abs(amount)
         else:
@@ -98,7 +98,7 @@ class FinanceManager:
             tx_type=tx_type,
         )
 
-    # ----- Presentation helpers (for GUI table) -----
+    # ----- Presentation helpers (Gor GUI) -----
     def table_rows(self):
         rows = []
         for i, tx in enumerate(self.transactions):
